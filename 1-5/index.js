@@ -1,7 +1,8 @@
 const express = require("express");
 
 const app = express();
-
+//we use the static middleware for Css and other files
+app.use(express.static(__dirname + "/views"));
 const pageOneController = (_req, res) => {
   res.sendFile(`${__dirname}/views/index1.html`);
 };

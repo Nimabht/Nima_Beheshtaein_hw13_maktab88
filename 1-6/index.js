@@ -1,6 +1,8 @@
 const express = require("express");
 
 const app = express();
+//we use the static middleware for Css and other files
+app.use(express.static(__dirname + "/views"));
 
 const pageController = (req, res) => {
   const noPage = req.params.no;
