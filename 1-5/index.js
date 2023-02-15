@@ -1,33 +1,27 @@
 const express = require("express");
+const VIEWS_PATH = `${__dirname}/views`;
 
 const app = express();
 //we use the static middleware for Css and other files
-app.use(express.static(__dirname + "/views"));
-const pageOneController = (_req, res) => {
-  res.sendFile(`${__dirname}/views/index1.html`);
-};
-const pageTwoController = (_req, res) => {
-  res.sendFile(`${__dirname}/views/index2.html`);
-};
-const pageThreeController = (_req, res) => {
-  res.sendFile(`${__dirname}/views/index3.html`);
-};
-const pageFourController = (_req, res) => {
-  res.sendFile(`${__dirname}/views/index4.html`);
-};
-const pageFiveController = (_req, res) => {
-  res.sendFile(`${__dirname}/views/index5.html`);
-};
+app.use(express.static(VIEWS_PATH));
+
+const pages = [
+  { path: "/page1", file: "index1.html" },
+  { path: "/page2", file: "index2.html" },
+  { path: "/page3", file: "index3.html" },
+  { path: "/page4", file: "index4.html" },
+  { path: "/page5", file: "index5.html" },
+];
+
+pages.forEach(({ path, file }) => {
+  app.get(path, (_req, res) => {
+    res.sendFile(`${VIEWS_PATH}/${file}`);
+  });
+});
 
 const notFoundController = (req, res) => {
   res.status(404).send("Sorry, that route is not found.");
 };
-
-app.get("/page1", pageOneController);
-app.get("/page2", pageTwoController);
-app.get("/page3", pageThreeController);
-app.get("/page4", pageFourController);
-app.get("/page5", pageFiveController);
 
 app.use(notFoundController);
 

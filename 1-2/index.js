@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 
+const rootController = (req, res) => {
+  res.send("Root Route");
+};
+
 const homeController = (req, res) => {
   res.send("Home Route");
 };
@@ -17,10 +21,7 @@ const notFoundController = (req, res) => {
   res.status(404).send("Sorry, that route is not found.");
 };
 
-app.get("/", (_req, res) => {
-  res.send("Root Route");
-});
-
+app.get("/", rootController);
 app.get("/home", homeController);
 app.get("/about", aboutController);
 app.get("/contact", contactController);
